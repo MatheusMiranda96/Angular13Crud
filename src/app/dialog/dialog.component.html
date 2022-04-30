@@ -1,0 +1,58 @@
+<!-- Modal Add Produto -->
+<h1 mat-dialog-title>Add Produto Form</h1>
+<div mat-dialog-content>
+    <form [formGroup]="productForm">
+      <div mat-dialog-content>
+        <!-- Nome do produto -->
+        <mat-form-field appearance="outline">
+            <mat-label>Nome do Produto</mat-label>
+            <input formControlName="productName" matInput placeholder="Nome">
+          </mat-form-field>
+    
+          <!-- Categoria do produto -->
+          <mat-form-field appearance="outline">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="category" placeholder="Categoria">
+                <mat-option value="Frutas">Frutas</mat-option>
+                <mat-option value="Eletronicos">Vegetais</mat-option>
+                <mat-option value="Frutas">Eletronicos</mat-option>
+            </mat-select>
+          </mat-form-field>
+    
+          <!-- Data do produto -->
+        <mat-form-field appearance="outline">
+            <mat-label>Selecione a Data</mat-label>
+            <input formControlName="date" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    
+          <!-- Estado do produto -->
+          <label for=""><h1>Estado do Produto</h1></label>
+          <mat-radio-group formControlName="freshness" class="example-radio-group">
+              <mat-radio-button class="example-radio-button" *ngFor="let fresh of freshnessList" [value]="fresh">
+                {{fresh}}
+              </mat-radio-button>
+          </mat-radio-group>
+    
+          <!-- Preço do produto -->
+          <mat-form-field appearance="outline">
+            <mat-label>Preço</mat-label>
+            <input formControlName="price" matInput type="number" placeholder="Preço">
+          </mat-form-field>
+    
+          <!-- Descrição do produto -->
+          <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <textarea formControlName="comment" matInput></textarea>
+         </mat-form-field>
+
+       </div>
+    </form>
+</div>
+    
+    <!-- Botões Fechar/Salvar -->
+    <div mat-dialog-action [align]=" 'end' ">
+        <button mat-raised-button color="warn" mat-dialog-close>Fechar</button>
+        <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addProduct()">Salvar</button>
+    </div>
