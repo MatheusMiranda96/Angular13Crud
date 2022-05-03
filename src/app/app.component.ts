@@ -14,7 +14,7 @@ import { ApiService } from './services/api.service';
   })
   export class AppComponent  implements OnInit{
   title = 'Angular13Crud';
-  displayedColumns: string[] = ['productName', 'category', 'date', 'freshness', 'price', 'comment'];
+  displayedColumns: string[] = ['id','productName', 'category', 'date', 'freshness', 'price', 'comment'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,7 +41,7 @@ import { ApiService } from './services/api.service';
               this.dataSource.sort = this.sort
             },
             error:(err)=>{
-            alert(" Error while fetching the Records!!")
+            alert(" Erro ao carregar Registros!")
           }
       })
   }

@@ -1,49 +1,13 @@
 {
   "productList": [
     {
-      "productName": "iphone",
-      "category": "Frutas",
+      "productName": " Iphone XR",
+      "category": "Eletronicos",
       "freshness": "Novo",
-      "price": 400,
-      "comment": "teste iphone ",
+      "price": 3700,
+      "comment": " 128GB",
       "date": "2022-05-02T03:00:00.000Z",
       "id": 1
-    },
-    {
-      "productName": "iphone",
-      "category": "Frutas",
-      "freshness": "Novo",
-      "price": 400,
-      "comment": "teste iphone ",
-      "date": "2022-05-02T03:00:00.000Z",
-      "id": 2
-    },
-    {
-      "productName": "iphone",
-      "category": "Eletronicos",
-      "freshness": "Novo",
-      "price": 400,
-      "comment": "teste iphone ",
-      "date": "2022-05-02T03:00:00.000Z",
-      "id": 3
-    },
-    {
-      "productName": " Iphone",
-      "category": "Eletronicos",
-      "freshness": "Novo",
-      "price": 450,
-      "comment": " teste",
-      "date": "2022-05-02T03:00:00.000Z",
-      "id": 4
-    },
-    {
-      "productName": " xiaomi pro",
-      "category": "Eletronicos",
-      "freshness": "Usado",
-      "price": 100,
-      "comment": " ship não funciona",
-      "date": "2022-05-02T03:00:00.000Z",
-      "id": 5
     }
   ],
   "comments": [
