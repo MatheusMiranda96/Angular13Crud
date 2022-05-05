@@ -14,7 +14,7 @@ import { ApiService } from './services/api.service';
   })
   export class AppComponent  implements OnInit{
   title = 'Angular13Crud';
-  displayedColumns: string[] = ['id','productName', 'category', 'date', 'freshness', 'price', 'comment'];
+  displayedColumns: string[] = ['id','productName', 'category', 'date', 'freshness', 'price', 'comment','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -30,7 +30,11 @@ import { ApiService } from './services/api.service';
   openDialog() {
     this.dialog.open(DialogComponent, {
       width:'30%'
-    });
+    }).afterClosed().subscribe(val=>{
+      if(val ==='save'){
+        this.getAllProducts();
+      }
+    })
   }
   getAllProducts(){
        this.api.getProduct()
@@ -44,6 +48,28 @@ import { ApiService } from './services/api.service';
             alert(" Erro ao carregar Registros!")
           }
       })
+  }
+  editProduct( row : any){
+    this.dialog.open(DialogComponent,{
+      width: '30%',
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if(val ==='update'){
+        this.getAllProducts();
+      }
+    })
+  }
+  deleteProduct(id:number){
+      this.api.deleteProduct(id)
+        .subscribe({
+          next:(res)=>{
+            alert('Produto excluído com sucesso!!');
+            this.getAllProducts();
+          },
+          error:()=>{
+            alert(" Erro ao excluir produto!")
+          }
+        })
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

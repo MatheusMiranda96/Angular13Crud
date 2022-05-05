@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { inject } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 import { ApiService } from '../services/api.service';
 
@@ -11,9 +12,13 @@ import { ApiService } from '../services/api.service';
 })
 export class DialogComponent implements OnInit {
   freshnessList = ['Novo', 'Usado', 'Remanufaturado'];
-  productForm!: FormGroup;
+  productForm !: FormGroup;
+  actionBtn : string = "Salvar";
 
-  constructor(private formBuilder: FormBuilder, private api: ApiService, private dialogRef: MatDialogRef<DialogComponent>) {}
+  constructor(private formBuilder: FormBuilder, 
+    private api : ApiService, 
+    @Inject(MAT_DIALOG_DATA) public editData : any,
+    private dialogRef: MatDialogRef<DialogComponent>) { }
 
   ngOnInit(): void {
     this.productForm = this.formBuilder.group({
@@ -23,9 +28,20 @@ export class DialogComponent implements OnInit {
       price: [' ', Validators.required],
       comment: [' ', Validators.required],
       date: [' ', Validators.required],
-    })
+    });
+    if(this.editData){
+      this.actionBtn = "Atualizar";
+      this.productForm.controls['productName'].setValue(this.editData.productName);
+      this.productForm.controls['category'].setValue(this.editData.category);
+      this.productForm.controls['freshness'].setValue(this.editData.freshness);
+      this.productForm.controls['price'].setValue(this.editData.price);
+      this.productForm.controls['comment'].setValue(this.editData.comment);
+      this.productForm.controls['date'].setValue(this.editData.date);
+    }
+
   }
   addProduct() {
+   if(!this.editData){
     if (this.productForm.valid) {
       this.api.postProduct(this.productForm.value).subscribe({
         next: (res) => {
@@ -38,5 +54,22 @@ export class DialogComponent implements OnInit {
         }
       });
     }
+   }else{
+     this.updateProduct()
+   }
   }
+    updateProduct(){
+        this.api.putProduct(this.productForm.value,this.editData.id)
+          .subscribe({
+            next:(res)=>{
+              alert("Produto atualizado com sucesso!");
+                this.productForm.reset();
+                this.dialogRef.close('update');
+            },
+            error:()=>{
+              alert("Erro ao atualizar o produto!");
+            }
+          })
+      }
+
 }
